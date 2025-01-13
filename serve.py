@@ -1,44 +1,54 @@
+import os 
+
+from typing import List
+
+from fastapi import FastAPI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain.output_parsers import StrOutputParser  # Use StrOutputParser instead
+from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 from langserve import add_routes
-from fastapi import FastAPI
-import os
 
 from dotenv import load_dotenv, find_dotenv
+
 _ = load_dotenv(find_dotenv())
 
-OPENAI_API_KEY  = os.getenv('OPENAI_API_KEY')
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 
-# Create prompt template
+# 1. Create prompt template
 system_template = "Translate the following into {language}:"
 prompt_template = ChatPromptTemplate.from_messages([
     ('system', system_template),
     ('user', '{text}')
 ])
 
-# Create model
-model = ChatOpenAI(model='gpt-4o-mini')
+# 2. Create model
+model = ChatOpenAI(model="gpt-4o-mini")
 
-# Create parser using StrOutputParser
-parser = StrOutputParser()  # Use StrOutputParser instead of RetryOutputParser
+# 3. Create parser
+parser = StrOutputParser()
 
-# Create chain
+# 4. Create chain
 chain = prompt_template | model | parser
 
-# FastAPI app definition
+
+# 4. App definition
 app = FastAPI(
-    title="LangChain Server",
-    version="1.0",
-    description="A simple API server using LangChain's Runnable interfaces",
+  title="LangChain Server",
+  version="1.0",
+  description="A simple API server using LangChain's Runnable interfaces",
 )
 
-# Adding chain route
-add_routes(
-    app,
-    chain,
-    path="/chain",
-)
+# 5. Adding chain route
+
+if not any(route.path == "/chain" for route in app.routes):
+    add_routes(app,
+               chain, 
+               path="/chain")
+
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Translation API"}
+
 
 if __name__ == "__main__":
     import uvicorn

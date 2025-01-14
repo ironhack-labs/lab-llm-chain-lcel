@@ -1,6 +1,7 @@
 # !/usr/bin/env python
 from typing import List
 import os
+import uvicorn
 
 # os.system("pip install fastapi")
 # os.system("pip install uvicorn")

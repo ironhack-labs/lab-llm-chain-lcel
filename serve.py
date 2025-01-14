@@ -1,4 +1,3 @@
-#!/Users/guyparsadanov/Downloads/Iron-Hack-Work/w7/lab-llm-chain-lcel/langchain python
 from typing import List
 
 from fastapi import FastAPI

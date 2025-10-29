@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data files (don't commit large files)
+# data/raw/*.pdf
+# data/processed/
+
+# API keys
+.env
+*.env
+
+# Streamlit
+# Ignore all by default, but commit config.toml (not secrets.toml)
+
+# .streamlit/
+# !.streamlit/config.toml
+.streamlit/secrets.toml
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

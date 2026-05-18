@@ -5,14 +5,14 @@ from langchain_openai import ChatOpenAI
 from langserve import add_routes
 
 from dotenv import load_dotenv
-load_dotenv(override=True)
 
+load_dotenv(override=True)
 
 # 1. Create prompt template
 system_template = "Translate the following into {language}:"
 prompt_template = ChatPromptTemplate.from_messages([
-    ('system', system_template),
-    ('user', '{text}')
+    ("system", system_template),
+    ("user", "{text}"),
 ])
 
 # 2. Create model
@@ -24,15 +24,15 @@ parser = StrOutputParser()
 # 4. Create chain
 chain = prompt_template | model | parser
 
-# 4. App definition
+# 5. App definition
 app = FastAPI(
-  title="LangChain Server",
-  version="1.0",
-  description="A simple API server using LangChain's Runnable interfaces",
+    title="LangChain Server",
+    version="1.0",
+    description="A simple API server using LangChain's Runnable interfaces",
 )
 
-# 5. Adding chain route
-
+# 6. Add chain route.
+# Expected input: {"language": "italian", "text": "hi!"}
 add_routes(
     app,
     chain,

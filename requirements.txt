@@ -1,0 +1,8 @@
+langchain-core>=0.3,<0.4
+langchain-openai>=0.3,<0.4
+langserve[all]>=0.3,<0.4
+fastapi>=0.115,<1
+uvicorn>=0.30,<1
+httpx>=0.27,<1
+python-dotenv>=1,<2
+ipykernel>=6,<8

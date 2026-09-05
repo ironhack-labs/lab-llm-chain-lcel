@@ -15,7 +15,11 @@ from langserve import add_routes
 load_dotenv()
 
 # Optional: enable LangSmith tracing
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# Respect explicit tracing settings; enable by default only when a key exists.
+os.environ.setdefault(
+    "LANGCHAIN_TRACING_V2",
+    "true" if (os.getenv("LANGSMITH_API_KEY") or os.getenv("LANGCHAIN_API_KEY")) else "false",
+)
 
 
 # 1. Create prompt template

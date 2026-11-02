@@ -15,7 +15,9 @@ from langserve import add_routes
 load_dotenv()
 
 # Optional: enable LangSmith tracing
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# Disable LangSmith tracing
+os.environ["LANGCHAIN_TRACING_V2"] = "false"
+os.environ["LANGSMITH_TRACING"] = "false"
 
 
 # 1. Create prompt template

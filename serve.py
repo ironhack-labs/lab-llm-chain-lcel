@@ -14,8 +14,11 @@ from langserve import add_routes
 # Load environment variables (e.g. OPENAI_API_KEY) from a local .env file, if present
 load_dotenv()
 
-# Optional: enable LangSmith tracing
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
+# Trace only when configured; the translation API also works without LangSmith.
+os.environ.setdefault(
+    "LANGCHAIN_TRACING_V2",
+    "true" if os.environ.get("LANGCHAIN_API_KEY") else "false",
+)
 
 
 # 1. Create prompt template
@@ -61,7 +64,12 @@ add_routes(
 
 # 7. Run server
 if __name__ == "__main__":
+    import sys
     import uvicorn
+
+    # LangServe's startup banner includes Unicode box-drawing characters.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="backslashreplace")
 
     uvicorn.run(
         app,
